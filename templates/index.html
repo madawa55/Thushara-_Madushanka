@@ -1,0 +1,406 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
+                <span class="hero-subtitle">Hello, I'm</span>
+                <h1 class="hero-title">{{ data.name }}</h1>
+                <h2 class="hero-role">{{ data.title }}</h2>
+                <p class="hero-description">{{ data.tagline }}</p>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn btn-primary">
+                        <span>View Portfolio</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        <span>Contact Me</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="{{ data.years_experience }}">0</span>
+                        <span class="stat-suffix">+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="{{ data.projects_completed }}">0</span>
+                        <span class="stat-suffix">+</span>
+                        <span class="stat-label">Clients Served</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="100">0</span>
+                        <span class="stat-suffix">+</span>
+                        <span class="stat-label">Happy Families</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-bg"></div>
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="{{ data.name }}">
+                    <div class="hero-image-decoration"></div>
+                </div>
+                <div class="floating-card card-1" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Insurance Expert</span>
+                </div>
+                <div class="floating-card card-2" data-aos="fade-up" data-aos-delay="500">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Financial Planner</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <a href="#about" class="scroll-indicator">
+                <span>Scroll Down</span>
+                <div class="scroll-icon">
+                    <div class="scroll-wheel"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about" id="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-image" data-aos="fade-right" data-aos-duration="1000">
+                <div class="about-image-wrapper">
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="About {{ data.name }}">
+                    <div class="experience-badge">
+                        <span class="exp-number">{{ data.years_experience }}+</span>
+                        <span class="exp-text">Years of Experience</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-text" data-aos="fade-left" data-aos-duration="1000">
+                <span class="section-subtitle">About Me</span>
+                <h2 class="section-title">MDRT Member 2025 - A Global Milestone</h2>
+                <p class="about-description">{{ data.about.description }}</p>
+                <div class="about-features">
+                    {% for service in data.about.services %}
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span>{{ service }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="about-tools">
+                    <h4>Tools & Technologies</h4>
+                    <div class="tools-list">
+                        {% for tool in data.tools %}
+                        <span class="tool-badge">{{ tool }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <a href="#contact" class="btn btn-primary">
+                    <span>Let's Talk</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="skills">
+    <div class="container">
+        <div class="skills-header" data-aos="fade-up">
+            <span class="section-subtitle">My Skills</span>
+            <h2 class="section-title">Professional Expertise</h2>
+        </div>
+        <div class="skills-content">
+            <div class="skills-text" data-aos="fade-right">
+                <p>With years of experience in the industry, I've developed a diverse set of skills that enable me to deliver comprehensive solutions for any project.</p>
+            </div>
+            <div class="skills-bars" data-aos="fade-left">
+                {% for skill in data.skills %}
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">{{ skill.name }}</span>
+                        <span class="skill-percent">{{ skill.percentage }}%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="{{ skill.percentage }}"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">What I Do</span>
+            <h2 class="section-title">Services I Offer</h2>
+            <p class="section-description">I provide comprehensive digital solutions to help your business thrive in the modern world.</p>
+        </div>
+        <div class="services-grid">
+            {% for service in data.services %}
+            <div class="service-card" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="service-icon">
+                    <i class="{{ service.icon }}"></i>
+                </div>
+                <h3 class="service-title">{{ service.title }}</h3>
+                <p class="service-description">{{ service.description }}</p>
+                <a href="#contact" class="service-link">
+                    <span>Learn More</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Section -->
+<section class="portfolio" id="portfolio">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">My Work</span>
+            <h2 class="section-title">Recent Projects</h2>
+            <p class="section-description">Explore my latest projects and see how I bring ideas to life.</p>
+        </div>
+        <div class="portfolio-filter" data-aos="fade-up">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="insurance">Insurance</button>
+            <button class="filter-btn" data-filter="investment">Investment</button>
+            <button class="filter-btn" data-filter="business">Business</button>
+        </div>
+        <div class="portfolio-grid">
+            {% for project in data.projects %}
+            <div class="portfolio-item" data-category="{{ project.category }}" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="portfolio-image">
+                    <img src="{{ project.image }}" alt="{{ project.title }}">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-info">
+                            <h3>{{ project.title }}</h3>
+                            <div class="portfolio-tools">
+                                {% for tool in project.tools %}
+                                <span>{{ tool }}</span>
+                                {% endfor %}
+                            </div>
+                            <a href="{{ project.link }}" class="portfolio-link">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Testimonials</span>
+            <h2 class="section-title">What Clients Say</h2>
+            <p class="section-description">Hear from satisfied clients about their experience working with me.</p>
+        </div>
+        <div class="testimonials-slider" data-aos="fade-up">
+            <div class="testimonials-track">
+                {% for testimonial in data.testimonials %}
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">{{ testimonial.text }}</p>
+                    <div class="testimonial-author">
+                        <img src="{{ testimonial.image }}" alt="{{ testimonial.name }}">
+                        <div class="author-info">
+                            <h4>{{ testimonial.name }}</h4>
+                            <span>{{ testimonial.role }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="testimonial-dots">
+                {% for testimonial in data.testimonials %}
+                <button class="dot {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}"></button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing" id="pricing">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Pricing</span>
+            <h2 class="section-title">Flexible Pricing Plans</h2>
+            <p class="section-description">Choose a plan that fits your needs and budget.</p>
+        </div>
+        <div class="pricing-grid">
+            {% for plan in data.pricing %}
+            <div class="pricing-card {% if plan.popular %}popular{% endif %}" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                {% if plan.popular %}
+                <div class="popular-badge">Most Popular</div>
+                {% endif %}
+                <div class="pricing-header">
+                    <h3 class="plan-name">{{ plan.name }}</h3>
+                    <div class="plan-price">
+                        <span class="currency">LKR</span>
+                        <span class="amount">{{ plan.price }}</span>
+                        <span class="period">/{{ plan.period }}</span>
+                    </div>
+                </div>
+                <ul class="plan-features">
+                    {% for feature in plan.features %}
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>{{ feature }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <a href="#contact" class="btn {% if plan.popular %}btn-primary{% else %}btn-outline{% endif %}">
+                    <span>Get Started</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section class="blog" id="blog">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Latest News</span>
+            <h2 class="section-title">From The Blog</h2>
+            <p class="section-description">Insights, tips, and stories from my experience in the industry.</p>
+        </div>
+        <div class="blog-grid">
+            {% for post in data.blog %}
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="blog-image">
+                    <img src="{{ post.image }}" alt="{{ post.title }}">
+                    <div class="blog-date">
+                        <span>{{ post.date }}</span>
+                    </div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-user"></i> {{ post.author }}</span>
+                    </div>
+                    <h3 class="blog-title">{{ post.title }}</h3>
+                    <p class="blog-excerpt">{{ post.excerpt }}</p>
+                    <a href="#" class="blog-link">
+                        <span>Read More</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact" id="contact">
+    <div class="container">
+        <div class="contact-content">
+            <div class="contact-info" data-aos="fade-right">
+                <span class="section-subtitle">Get In Touch</span>
+                <h2 class="section-title">Let's Work Together</h2>
+                <p class="contact-description">Have a project in mind? Let's discuss how I can help bring your vision to life.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <a href="mailto:{{ data.email }}">{{ data.email }}</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Phone</h4>
+                            <a href="tel:{{ data.phone }}">{{ data.phone }}</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Location</h4>
+                            <span>{{ data.address }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-social">
+                    <h4>Follow Me</h4>
+                    <div class="social-links">
+                        <a href="{{ data.social.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{{ data.social.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="{{ data.social.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="{{ data.social.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="{{ data.social.github }}" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form-wrapper" data-aos="fade-left">
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" name="name" id="name" placeholder="Your Name" required>
+                        <label for="name">Your Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" placeholder="Your Email" required>
+                        <label for="email">Your Email</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" id="subject" placeholder="Subject" required>
+                        <label for="subject">Subject</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" id="message" rows="5" placeholder="Your Message" required></textarea>
+                        <label for="message">Your Message</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+            <h2>Ready to Start Your Project?</h2>
+            <p>Let's collaborate and create something amazing together.</p>
+            <a href="#contact" class="btn btn-white">
+                <span>Get in Touch</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
